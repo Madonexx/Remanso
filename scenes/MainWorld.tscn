@@ -1,0 +1,743 @@
+[gd_scene format=3 uid="uid://ctnig5hisxyc3"]
+
+[ext_resource type="Script" uid="uid://b5o050msypact" path="res://scripts/MainWorld.gd" id="1_world"]
+[ext_resource type="Shader" uid="uid://bi5qypkdtqcmj" path="res://shaders/parana_water.gdshader" id="2_water_shader"]
+[ext_resource type="PackedScene" path="res://scenes/Boat.tscn" id="3_boat"]
+[ext_resource type="PackedScene" uid="uid://cq3bejfqehtge" path="res://Used_Assets/models/platform_grass.glb" id="4_plat_grass"]
+[ext_resource type="PackedScene" uid="uid://bqgjobjjidgxl" path="res://Used_Assets/models/platform_beach.glb" id="5_plat_beach"]
+[ext_resource type="PackedScene" uid="uid://bdheeegg84ekj" path="res://Used_Assets/models/bridge_wood.glb" id="6_bridge_wood"]
+[ext_resource type="PackedScene" uid="uid://d2txwv4thjy5j" path="res://Used_Assets/models/bridge_center_wood.glb" id="7_bridge_center"]
+[ext_resource type="PackedScene" uid="uid://bcuo0qpmegbuv" path="res://Used_Assets/models/structure.glb" id="8_structure"]
+[ext_resource type="PackedScene" uid="uid://beubcsiax20g5" path="res://Used_Assets/models/structure-roof.glb" id="9_roof"]
+[ext_resource type="PackedScene" uid="uid://bmnpt5vsvmoha" path="res://Used_Assets/models/workbench.glb" id="10_workbench"]
+[ext_resource type="PackedScene" uid="uid://cxrf4euowas5o" path="res://Used_Assets/models/barrel.glb" id="11_barrel"]
+[ext_resource type="PackedScene" uid="uid://bvyjcuqttdch7" path="res://Used_Assets/models/box.glb" id="12_box"]
+[ext_resource type="PackedScene" uid="uid://drlan88felh48" path="res://Used_Assets/models/chest.glb" id="13_chest"]
+[ext_resource type="PackedScene" uid="uid://3kkbfowfxymx" path="res://Used_Assets/models/signpost.glb" id="14_signpost"]
+[ext_resource type="PackedScene" uid="uid://b536hayga0ybe" path="res://Used_Assets/models/tree_oak.glb" id="15_tree_oak"]
+[ext_resource type="PackedScene" uid="uid://cd5tbovcuqxk6" path="res://Used_Assets/models/tree_fat.glb" id="16_tree_fat"]
+[ext_resource type="PackedScene" uid="uid://bln7ep75cj014" path="res://Used_Assets/models/tree_detailed.glb" id="17_tree_det"]
+[ext_resource type="PackedScene" uid="uid://d3iyq8wnq8a0e" path="res://Used_Assets/models/crops_bambooStageB.glb" id="18_reeds"]
+[ext_resource type="PackedScene" uid="uid://c4tma0e1qgq54" path="res://Used_Assets/models/grass_large.glb" id="19_grass"]
+[ext_resource type="PackedScene" uid="uid://bhebngiv7r5k0" path="res://Used_Assets/models/lily_large.glb" id="20_lily"]
+[ext_resource type="PackedScene" uid="uid://bi2jcox67cmci" path="res://Used_Assets/models/log_large.glb" id="21_log"]
+[ext_resource type="PackedScene" uid="uid://dn242ttqnerk6" path="res://Used_Assets/models/stump_old.glb" id="22_stump"]
+[ext_resource type="PackedScene" uid="uid://cibfp52jkvs42" path="res://Used_Assets/models/rock_largeA.glb" id="23_rock"]
+[ext_resource type="PackedScene" uid="uid://bqnrxv2svn4gd" path="res://Used_Assets/models/buoy.glb" id="24_buoy"]
+[ext_resource type="PackedScene" uid="uid://bbvfn0pfdsmf8" path="res://Used_Assets/models/buoy-flag.glb" id="25_buoy_flag"]
+[ext_resource type="PackedScene" uid="uid://dwc2yrro5xflf" path="res://Used_Assets/models/building-a.glb" id="26_port_bldg"]
+[ext_resource type="PackedScene" uid="uid://cqgw0dqg8ok71" path="res://Used_Assets/models/cargo-container-a.glb" id="27_container"]
+[ext_resource type="PackedScene" uid="uid://d1ik7c67wunj7" path="res://Used_Assets/models/cargo-pile-a.glb" id="28_cargo_pile"]
+[ext_resource type="PackedScene" path="res://scenes/FishingSpot.tscn" id="29_fspot"]
+[ext_resource type="PackedScene" path="res://scenes/PassiveNetSpot.tscn" id="30_pnet"]
+[ext_resource type="PackedScene" path="res://scenes/HUD.tscn" id="31_hud"]
+[ext_resource type="PackedScene" path="res://scenes/EnemyBarge.tscn" id="32_barge"]
+[ext_resource type="PackedScene" path="res://scenes/IllegalNet.tscn" id="33_inet"]
+[ext_resource type="PackedScene" path="res://scenes/CargoShip.tscn" id="34_cship"]
+[ext_resource type="PackedScene" uid="uid://dma7of6ohikmh" path="res://Used_Assets/models/structure-canvas.glb" id="35_canvas_struct"]
+[ext_resource type="PackedScene" uid="uid://bmpndlh62ji1b" path="res://Used_Assets/models/lily_small.glb" id="36_lily_sm"]
+[ext_resource type="PackedScene" path="res://scenes/NeighborBoat.tscn" id="37_nboat"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_parana"]
+sky_top_color = Color(0.32, 0.56, 0.82, 1)
+sky_horizon_color = Color(0.68, 0.74, 0.76, 1)
+ground_bottom_color = Color(0.28, 0.19, 0.11, 1)
+ground_horizon_color = Color(0.68, 0.74, 0.76, 1)
+
+[sub_resource type="Sky" id="Sky_parana"]
+sky_material = SubResource("ProceduralSkyMaterial_parana")
+
+[sub_resource type="Environment" id="Environment_parana"]
+background_mode = 2
+sky = SubResource("Sky_parana")
+ambient_light_source = 2
+ambient_light_color = Color(0.58, 0.56, 0.48, 1)
+ambient_light_energy = 0.75
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.45
+fog_enabled = true
+fog_light_color = Color(0.58, 0.56, 0.48, 1)
+fog_density = 0.0028
+fog_sky_affect = 0.35
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_water"]
+render_priority = 0
+shader = ExtResource("2_water_shader")
+shader_parameter/shallow_color = Color(0.46, 0.34, 0.21, 0.94)
+shader_parameter/deep_color = Color(0.28, 0.19, 0.11, 0.98)
+shader_parameter/foam_color = Color(0.76, 0.66, 0.5, 1)
+shader_parameter/wave_speed = 1.15
+shader_parameter/wave_height = 0.14
+shader_parameter/wake_turbulence = 0.0
+shader_parameter/roughness_val = 0.22
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_water"]
+material = SubResource("ShaderMaterial_water")
+size = Vector2(680, 680)
+subdivide_width = 140
+subdivide_depth = 140
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_island"]
+height = 5.0
+radius = 7.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pier_dock"]
+size = Vector3(16, 5, 16)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_reed"]
+height = 5.0
+radius = 9.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hazard"]
+radius = 1.5
+
+[node name="MainWorld" type="Node3D" unique_id=2022488045]
+script = ExtResource("1_world")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1463674915]
+environment = SubResource("Environment_parana")
+
+[node name="SunLight" type="DirectionalLight3D" parent="." unique_id=849680791]
+transform = Transform3D(0.819152, -0.451987, 0.353396, 0, 0.615661, 0.788011, -0.573576, -0.645491, 0.504698, 0, 30, 0)
+light_color = Color(1, 0.95, 0.84, 1)
+light_energy = 1.35
+shadow_enabled = true
+directional_shadow_max_distance = 180.0
+
+[node name="ParanaWater" type="MeshInstance3D" parent="." unique_id=848032730]
+mesh = SubResource("PlaneMesh_water")
+
+[node name="CooperativePier" type="Node3D" parent="." unique_id=2068337224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, 34)
+
+[node name="BankBase" parent="CooperativePier" unique_id=412127374 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(42, 0, 0, 0, 9, 0, 0, 0, 42, -9, 0.35, 9)
+
+[node name="BankBeach" parent="CooperativePier" unique_id=400746707 instance=ExtResource("5_plat_beach")]
+transform = Transform3D(30, 0, 0, 0, 6, 0, 0, 0, 30, -2, 0.25, 2)
+
+[node name="BankCollider" type="StaticBody3D" parent="CooperativePier" unique_id=264625032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CooperativePier/BankCollider" unique_id=984710277]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="DockBridge1" parent="CooperativePier" unique_id=1687908732 instance=ExtResource("6_bridge_wood")]
+transform = Transform3D(5.2, 0, 0, 0, 4, 0, 0, 0, 5.2, 3.2, 0.25, -2.2)
+
+[node name="DockBridge2" parent="CooperativePier" unique_id=1867244730 instance=ExtResource("7_bridge_center")]
+transform = Transform3D(5.2, 0, 0, 0, 4, 0, 0, 0, 5.2, 7.2, 0.25, -5.2)
+
+[node name="DockBridge3" parent="CooperativePier" unique_id=1181041190 instance=ExtResource("7_bridge_center")]
+transform = Transform3D(5.2, 0, 0, 0, 4, 0, 0, 0, 5.2, 11.2, 0.25, -8.2)
+
+[node name="DockCrossLanding" parent="CooperativePier" unique_id=1088454226 instance=ExtResource("6_bridge_wood")]
+transform = Transform3D(0, 0, 5.2, 0, 4, 0, -5.2, 0, 0, 11.5, 0.25, -9.8)
+
+[node name="CoopShack" parent="CooperativePier" unique_id=215546328 instance=ExtResource("8_structure")]
+transform = Transform3D(4.2, 0, 0, 0, 4.2, 0, 0, 0, 4.2, -5.5, 1.85, 5.5)
+
+[node name="CoopRoof" parent="CooperativePier" unique_id=816835229 instance=ExtResource("9_roof")]
+transform = Transform3D(4.3, 0, 0, 0, 4.3, 0, 0, 0, 4.3, -5.5, 5.4, 5.5)
+
+[node name="AcopioTent" parent="CooperativePier" unique_id=1405424807 instance=ExtResource("35_canvas_struct")]
+transform = Transform3D(3.8, 0, 0, 0, 3.8, 0, 0, 0, 3.8, 0.5, 1.85, 5.8)
+
+[node name="Workbench" parent="CooperativePier" unique_id=1265610191 instance=ExtResource("10_workbench")]
+transform = Transform3D(3.2, 0, 0, 0, 3.2, 0, 0, 0, 3.2, -0.5, 1.85, 2.2)
+
+[node name="Barrel1" parent="CooperativePier" unique_id=1819412696 instance=ExtResource("11_barrel")]
+transform = Transform3D(2.8, 0, 0, 0, 2.8, 0, 0, 0, 2.8, 2, 1.85, 1.2)
+
+[node name="Barrel2" parent="CooperativePier" unique_id=1737985817 instance=ExtResource("11_barrel")]
+transform = Transform3D(2.8, 0, 0, 0, 2.8, 0, 0, 0, 2.8, 3.1, 1.85, 1.6)
+
+[node name="Crate1" parent="CooperativePier" unique_id=1237348323 instance=ExtResource("12_box")]
+transform = Transform3D(2.8, 0, 0, 0, 2.8, 0, 0, 0, 2.8, 2.5, 1.85, 2.8)
+
+[node name="Chest" parent="CooperativePier" unique_id=204145669 instance=ExtResource("13_chest")]
+transform = Transform3D(2.8, 0, 0, 0, 2.8, 0, 0, 0, 2.8, -2.5, 1.85, 1.8)
+
+[node name="Signpost" parent="CooperativePier" unique_id=431896031 instance=ExtResource("14_signpost")]
+transform = Transform3D(3.4, 0, 0, 0, 3.4, 0, 0, 0, 3.4, 4.5, 1.85, -1)
+
+[node name="ShoreRock1" parent="CooperativePier" unique_id=1423254406 instance=ExtResource("23_rock")]
+transform = Transform3D(5.5, 0, 0, 0, 5.5, 0, 0, 0, 5.5, -6, 0.65, -2)
+
+[node name="ShoreRock2" parent="CooperativePier" unique_id=105832244 instance=ExtResource("23_rock")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 5, 0.65, 5)
+
+[node name="PierTree1" parent="CooperativePier" unique_id=1947096345 instance=ExtResource("15_tree_oak")]
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, -12, 1.85, 11)
+
+[node name="PierTree2" parent="CooperativePier" unique_id=1617293343 instance=ExtResource("16_tree_fat")]
+transform = Transform3D(13, 0, 0, 0, 13, 0, 0, 0, 13, -14, 1.85, 2)
+
+[node name="PierTree3" parent="CooperativePier" unique_id=751011816 instance=ExtResource("17_tree_det")]
+transform = Transform3D(12.5, 0, 0, 0, 12.5, 0, 0, 0, 12.5, -3, 1.85, 12)
+
+[node name="DockBuoyL" parent="CooperativePier" unique_id=1205127863 instance=ExtResource("25_buoy_flag")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 8.2, 0, -11.5)
+
+[node name="DockBuoyR" parent="CooperativePier" unique_id=1138437535 instance=ExtResource("25_buoy_flag")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 14.5, 0, -7.8)
+
+[node name="SignMain" type="Label3D" parent="CooperativePier" unique_id=2018421649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 7.8, 4.5)
+billboard = 2
+modulate = Color(0.98, 0.85, 0.45, 1)
+text = "COOPERATIVA PESQUERA \"EL PARANÁ\""
+font_size = 72
+outline_size = 18
+
+[node name="SignDock" type="Label3D" parent="CooperativePier" unique_id=1250287798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 3.8, -8.5)
+billboard = 2
+modulate = Color(0.58, 0.94, 0.98, 1)
+text = "⚓ MUELLE — ACOPIO, PEDIDOS Y TALLER [E]"
+font_size = 52
+outline_size = 14
+
+[node name="PierLantern" type="OmniLight3D" parent="CooperativePier" unique_id=1352185744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 3.2, -8.2)
+light_color = Color(1, 0.78, 0.38, 1)
+light_energy = 3.2
+omni_range = 22.0
+
+[node name="DockingZone" type="Area3D" parent="CooperativePier" unique_id=1837869305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 0.5, -9.2)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CooperativePier/DockingZone" unique_id=534190916]
+shape = SubResource("BoxShape3D_pier_dock")
+
+[node name="DeltaIslands" type="Node3D" parent="." unique_id=1219749978]
+
+[node name="LagoonIslandWest" type="StaticBody3D" parent="DeltaIslands" unique_id=1714939367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 0, -28)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/LagoonIslandWest" unique_id=1111987964]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/LagoonIslandWest" unique_id=1655102881 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(38, 0, 0, 0, 8, 0, 0, 0, 38, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/LagoonIslandWest" unique_id=1508617613 instance=ExtResource("15_tree_oak")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -4, 1.85, -3)
+
+[node name="Tree2" parent="DeltaIslands/LagoonIslandWest" unique_id=1704052181 instance=ExtResource("17_tree_det")]
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, 4, 1.85, 3)
+
+[node name="LagoonIslandCenter" type="StaticBody3D" parent="DeltaIslands" unique_id=1554929719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -44)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/LagoonIslandCenter" unique_id=361033959]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/LagoonIslandCenter" unique_id=1209808831 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(36, 0, 0, 0, 7.8, 0, 0, 0, 36, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/LagoonIslandCenter" unique_id=494365589 instance=ExtResource("16_tree_fat")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -2, 1.8, 1)
+
+[node name="Tree2" parent="DeltaIslands/LagoonIslandCenter" unique_id=442706745 instance=ExtResource("15_tree_oak")]
+transform = Transform3D(13, 0, 0, 0, 13, 0, 0, 0, 13, 4, 1.8, -2)
+
+[node name="LagoonIslandEast" type="StaticBody3D" parent="DeltaIslands" unique_id=79496214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 22)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/LagoonIslandEast" unique_id=966858497]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/LagoonIslandEast" unique_id=1717362850 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(36, 0, 0, 0, 7.8, 0, 0, 0, 36, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/LagoonIslandEast" unique_id=167760448 instance=ExtResource("15_tree_oak")]
+transform = Transform3D(14.5, 0, 0, 0, 14.5, 0, 0, 0, 14.5, -3, 1.8, 3)
+
+[node name="Tree2" parent="DeltaIslands/LagoonIslandEast" unique_id=1410287012 instance=ExtResource("17_tree_det")]
+transform = Transform3D(13.5, 0, 0, 0, 13.5, 0, 0, 0, 13.5, 4, 1.8, -3)
+
+[node name="IslandRiachoNorte" type="StaticBody3D" parent="DeltaIslands" unique_id=94843090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56, 0, -78)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/IslandRiachoNorte" unique_id=682823532]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/IslandRiachoNorte" unique_id=788957596 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(38, 0, 0, 0, 8, 0, 0, 0, 38, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/IslandRiachoNorte" unique_id=1315574677 instance=ExtResource("15_tree_oak")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -4, 1.85, -3)
+
+[node name="RanchadaShack" parent="DeltaIslands/IslandRiachoNorte" unique_id=1794782233 instance=ExtResource("8_structure")]
+transform = Transform3D(3.2, 0, 0, 0, 3.2, 0, 0, 0, 3.2, 2.5, 1.8, 2.5)
+
+[node name="RanchadaRoof" parent="DeltaIslands/IslandRiachoNorte" unique_id=1065132306 instance=ExtResource("9_roof")]
+transform = Transform3D(3.3, 0, 0, 0, 3.3, 0, 0, 0, 3.3, 2.5, 4.5, 2.5)
+
+[node name="RanchadaDock" parent="DeltaIslands/IslandRiachoNorte" unique_id=1424556624 instance=ExtResource("6_bridge_wood")]
+transform = Transform3D(4.2, 0, 0, 0, 3.5, 0, 0, 0, 4.2, 6.5, 0.25, 6.5)
+
+[node name="IslandEsteroSur" type="StaticBody3D" parent="DeltaIslands" unique_id=1866758307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 66)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/IslandEsteroSur" unique_id=1914160482]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/IslandEsteroSur" unique_id=490828778 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(38, 0, 0, 0, 8, 0, 0, 0, 38, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/IslandEsteroSur" unique_id=1489995161 instance=ExtResource("16_tree_fat")]
+transform = Transform3D(14.5, 0, 0, 0, 14.5, 0, 0, 0, 14.5, -3, 1.85, 3)
+
+[node name="Tree2" parent="DeltaIslands/IslandEsteroSur" unique_id=2027661938 instance=ExtResource("17_tree_det")]
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, 4, 1.85, -2)
+
+[node name="RanchadaShack" parent="DeltaIslands/IslandEsteroSur" unique_id=1175846627 instance=ExtResource("8_structure")]
+transform = Transform3D(3.2, 0, 0, 0, 3.2, 0, 0, 0, 3.2, 0, 1.8, -3)
+
+[node name="RanchadaRoof" parent="DeltaIslands/IslandEsteroSur" unique_id=2077805776 instance=ExtResource("9_roof")]
+transform = Transform3D(3.3, 0, 0, 0, 3.3, 0, 0, 0, 3.3, 0, 4.5, -3)
+
+[node name="RanchadaDock" parent="DeltaIslands/IslandEsteroSur" unique_id=170741997 instance=ExtResource("6_bridge_wood")]
+transform = Transform3D(4.2, 0, 0, 0, 3.5, 0, 0, 0, 4.2, 0, 0.25, -8.5)
+
+[node name="IslandCamalotalOeste" type="StaticBody3D" parent="DeltaIslands" unique_id=1014134123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86, 0, 12)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/IslandCamalotalOeste" unique_id=683182773]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/IslandCamalotalOeste" unique_id=1888258202 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(36, 0, 0, 0, 7.8, 0, 0, 0, 36, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/IslandCamalotalOeste" unique_id=1708077050 instance=ExtResource("15_tree_oak")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -2, 1.85, 2)
+
+[node name="Tree2" parent="DeltaIslands/IslandCamalotalOeste" unique_id=106693524 instance=ExtResource("16_tree_fat")]
+transform = Transform3D(13.5, 0, 0, 0, 13.5, 0, 0, 0, 13.5, 3, 1.85, -3)
+
+[node name="IslandBajadaCentral" type="StaticBody3D" parent="DeltaIslands" unique_id=684881272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -82)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/IslandBajadaCentral" unique_id=2059479191]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/IslandBajadaCentral" unique_id=829367599 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(37, 0, 0, 0, 8, 0, 0, 0, 37, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/IslandBajadaCentral" unique_id=97027028 instance=ExtResource("17_tree_det")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 3, 1.85, 2)
+
+[node name="RanchadaShack" parent="DeltaIslands/IslandBajadaCentral" unique_id=1670075186 instance=ExtResource("35_canvas_struct")]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -2, 1.8, -2)
+
+[node name="RanchadaDock" parent="DeltaIslands/IslandBajadaCentral" unique_id=1709846816 instance=ExtResource("6_bridge_wood")]
+transform = Transform3D(4.2, 0, 0, 0, 3.5, 0, 0, 0, 4.2, -7.5, 0.25, 0)
+
+[node name="IslandDeltaProfundo" type="StaticBody3D" parent="DeltaIslands" unique_id=1765293035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -108)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/IslandDeltaProfundo" unique_id=1189572268]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/IslandDeltaProfundo" unique_id=1631854739 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(38, 0, 0, 0, 8, 0, 0, 0, 38, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/IslandDeltaProfundo" unique_id=4818305 instance=ExtResource("15_tree_oak")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -3, 1.85, -2)
+
+[node name="Tree2" parent="DeltaIslands/IslandDeltaProfundo" unique_id=1829622522 instance=ExtResource("16_tree_fat")]
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, 3, 1.85, 3)
+
+[node name="IslandPuntaSauce" type="StaticBody3D" parent="DeltaIslands" unique_id=1363431058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, 74)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/IslandPuntaSauce" unique_id=891982360]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/IslandPuntaSauce" unique_id=1847303486 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(36, 0, 0, 0, 7.8, 0, 0, 0, 36, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/IslandPuntaSauce" unique_id=1644818420 instance=ExtResource("17_tree_det")]
+transform = Transform3D(14.5, 0, 0, 0, 14.5, 0, 0, 0, 14.5, 0, 1.85, 0)
+
+[node name="IslandBarrancaNorte" type="StaticBody3D" parent="DeltaIslands" unique_id=629227278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82, 0, -48)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeltaIslands/IslandBarrancaNorte" unique_id=705364999]
+shape = SubResource("CylinderShape3D_island")
+
+[node name="Platform" parent="DeltaIslands/IslandBarrancaNorte" unique_id=1313312493 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(38, 0, 0, 0, 8, 0, 0, 0, 38, 0, 0.35, 0)
+
+[node name="Tree1" parent="DeltaIslands/IslandBarrancaNorte" unique_id=648271520 instance=ExtResource("15_tree_oak")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -3, 1.85, 2)
+
+[node name="Tree2" parent="DeltaIslands/IslandBarrancaNorte" unique_id=639473902 instance=ExtResource("16_tree_fat")]
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, 4, 1.85, -3)
+
+[node name="ReedStealthZones" type="Node3D" parent="." unique_id=1086408770]
+
+[node name="ReedBed1" type="Area3D" parent="ReedStealthZones" unique_id=27561997 groups=["reed_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -6)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReedStealthZones/ReedBed1" unique_id=228396258]
+shape = SubResource("CylinderShape3D_reed")
+
+[node name="ReedsA" parent="ReedStealthZones/ReedBed1" unique_id=1189343170 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 16, 0, 0, 0, 15, -2.5, -0.3, -1.5)
+
+[node name="ReedsB" parent="ReedStealthZones/ReedBed1" unique_id=8277895 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 17, 0, 0, 0, 15, 2.5, -0.3, 2)
+
+[node name="ReedsC" parent="ReedStealthZones/ReedBed1" unique_id=278756618 instance=ExtResource("18_reeds")]
+transform = Transform3D(14, 0, 0, 0, 15, 0, 0, 0, 14, -1.2, -0.3, 2.6)
+
+[node name="GrassA" parent="ReedStealthZones/ReedBed1" unique_id=523927677 instance=ExtResource("19_grass")]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 0, -0.1, -2.5)
+
+[node name="LilyA" parent="ReedStealthZones/ReedBed1" unique_id=1975079419 instance=ExtResource("20_lily")]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 3.8, 0.08, -1)
+
+[node name="ReedBed2" type="Area3D" parent="ReedStealthZones" unique_id=1224058990 groups=["reed_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -18)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReedStealthZones/ReedBed2" unique_id=682486688]
+shape = SubResource("CylinderShape3D_reed")
+
+[node name="ReedsA" parent="ReedStealthZones/ReedBed2" unique_id=1653196936 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 16, 0, 0, 0, 15, -2.2, -0.3, 1.8)
+
+[node name="ReedsB" parent="ReedStealthZones/ReedBed2" unique_id=148697536 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 17, 0, 0, 0, 15, 2.4, -0.3, -1.8)
+
+[node name="ReedsC" parent="ReedStealthZones/ReedBed2" unique_id=984331926 instance=ExtResource("18_reeds")]
+transform = Transform3D(14, 0, 0, 0, 15, 0, 0, 0, 14, 0.5, -0.3, 2.5)
+
+[node name="ReedBed3" type="Area3D" parent="ReedStealthZones" unique_id=760785186 groups=["reed_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 12)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReedStealthZones/ReedBed3" unique_id=2087210390]
+shape = SubResource("CylinderShape3D_reed")
+
+[node name="ReedsA" parent="ReedStealthZones/ReedBed3" unique_id=669211223 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 16, 0, 0, 0, 15, -2.2, -0.3, 0)
+
+[node name="ReedsB" parent="ReedStealthZones/ReedBed3" unique_id=845882667 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 17, 0, 0, 0, 15, 2, -0.3, 2.2)
+
+[node name="ReedsC" parent="ReedStealthZones/ReedBed3" unique_id=746123700 instance=ExtResource("18_reeds")]
+transform = Transform3D(14, 0, 0, 0, 15, 0, 0, 0, 14, 1.5, -0.3, -2.2)
+
+[node name="ReedBed4" type="Area3D" parent="ReedStealthZones" unique_id=1884875897 groups=["reed_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -24)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReedStealthZones/ReedBed4" unique_id=614138985]
+shape = SubResource("CylinderShape3D_reed")
+
+[node name="ReedsA" parent="ReedStealthZones/ReedBed4" unique_id=1925515597 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 16, 0, 0, 0, 15, -1.8, -0.3, 1.2)
+
+[node name="ReedsB" parent="ReedStealthZones/ReedBed4" unique_id=245272555 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 17, 0, 0, 0, 15, 2.4, -0.3, -1.8)
+
+[node name="ReedsC" parent="ReedStealthZones/ReedBed4" unique_id=973898614 instance=ExtResource("18_reeds")]
+transform = Transform3D(14, 0, 0, 0, 15, 0, 0, 0, 14, 0, -0.3, -2.6)
+
+[node name="ReedBed5" type="Area3D" parent="ReedStealthZones" unique_id=13615910 groups=["reed_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 0, -48)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReedStealthZones/ReedBed5" unique_id=60022162]
+shape = SubResource("CylinderShape3D_reed")
+
+[node name="ReedsA" parent="ReedStealthZones/ReedBed5" unique_id=947296587 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 16, 0, 0, 0, 15, -2, -0.3, 1.5)
+
+[node name="ReedsB" parent="ReedStealthZones/ReedBed5" unique_id=1831353114 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 17, 0, 0, 0, 15, 2.2, -0.3, -1.5)
+
+[node name="ReedBed6" type="Area3D" parent="ReedStealthZones" unique_id=909228038 groups=["reed_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0, 56)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReedStealthZones/ReedBed6" unique_id=2072802937]
+shape = SubResource("CylinderShape3D_reed")
+
+[node name="ReedsA" parent="ReedStealthZones/ReedBed6" unique_id=494671983 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 16, 0, 0, 0, 15, -1.8, -0.3, -1.2)
+
+[node name="ReedsB" parent="ReedStealthZones/ReedBed6" unique_id=970696648 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 17, 0, 0, 0, 15, 2, -0.3, 1.8)
+
+[node name="ReedBed7" type="Area3D" parent="ReedStealthZones" unique_id=2084824675 groups=["reed_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -74)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReedStealthZones/ReedBed7" unique_id=1128199822]
+shape = SubResource("CylinderShape3D_reed")
+
+[node name="ReedsA" parent="ReedStealthZones/ReedBed7" unique_id=1197525609 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 16, 0, 0, 0, 15, -2.2, -0.3, 0)
+
+[node name="ReedsB" parent="ReedStealthZones/ReedBed7" unique_id=977840728 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 17, 0, 0, 0, 15, 2.2, -0.3, 2)
+
+[node name="ReedBed8" type="Area3D" parent="ReedStealthZones" unique_id=1423644913 groups=["reed_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 44)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReedStealthZones/ReedBed8" unique_id=1633159473]
+shape = SubResource("CylinderShape3D_reed")
+
+[node name="ReedsA" parent="ReedStealthZones/ReedBed8" unique_id=1947983539 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 16, 0, 0, 0, 15, -2, -0.3, -1.5)
+
+[node name="ReedsB" parent="ReedStealthZones/ReedBed8" unique_id=116744199 instance=ExtResource("18_reeds")]
+transform = Transform3D(15, 0, 0, 0, 17, 0, 0, 0, 15, 2, -0.3, 1.8)
+
+[node name="CamalotesVisuals" type="Node3D" parent="." unique_id=705698231]
+
+[node name="Camalote1" parent="CamalotesVisuals" unique_id=727961335 instance=ExtResource("20_lily")]
+transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 9, -42, 0.08, 12)
+
+[node name="Camalote2" parent="CamalotesVisuals" unique_id=25889981 instance=ExtResource("36_lily_sm")]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -45, 0.08, 15)
+
+[node name="Camalote3" parent="CamalotesVisuals" unique_id=593407319 instance=ExtResource("20_lily")]
+transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 9, -68, 0.08, -22)
+
+[node name="Camalote4" parent="CamalotesVisuals" unique_id=1219536231 instance=ExtResource("20_lily")]
+transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 9, 6, 0.08, 36)
+
+[node name="SubmergedHazards" type="Node3D" parent="." unique_id=239061161]
+
+[node name="LogHazard1" type="StaticBody3D" parent="SubmergedHazards" unique_id=1334244902]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -14, 0, 6)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmergedHazards/LogHazard1" unique_id=2008307305]
+shape = SubResource("SphereShape3D_hazard")
+
+[node name="LogMesh" parent="SubmergedHazards/LogHazard1" unique_id=740374611 instance=ExtResource("21_log")]
+transform = Transform3D(6.5, 0, 0, 0, 6.5, 0, 0, 0, 6.5, 0, 0.05, 0)
+
+[node name="StumpHazard2" type="StaticBody3D" parent="SubmergedHazards" unique_id=1752214623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -18)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmergedHazards/StumpHazard2" unique_id=310822205]
+shape = SubResource("SphereShape3D_hazard")
+
+[node name="StumpMesh" parent="SubmergedHazards/StumpHazard2" unique_id=1838790548 instance=ExtResource("22_stump")]
+transform = Transform3D(6.5, 0, 0, 0, 6.5, 0, 0, 0, 6.5, 0, 0.05, 0)
+
+[node name="RockHazard3" type="StaticBody3D" parent="SubmergedHazards" unique_id=1074477832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmergedHazards/RockHazard3" unique_id=1746676448]
+shape = SubResource("SphereShape3D_hazard")
+
+[node name="RockMesh" parent="SubmergedHazards/RockHazard3" unique_id=1053396399 instance=ExtResource("23_rock")]
+transform = Transform3D(5.5, 0, 0, 0, 5.5, 0, 0, 0, 5.5, 0, 0.05, 0)
+
+[node name="LogHazard4" type="StaticBody3D" parent="SubmergedHazards" unique_id=807248628]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -44, 0, -48)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmergedHazards/LogHazard4" unique_id=2143030279]
+shape = SubResource("SphereShape3D_hazard")
+
+[node name="LogMesh" parent="SubmergedHazards/LogHazard4" unique_id=921918301 instance=ExtResource("21_log")]
+transform = Transform3D(6.5, 0, 0, 0, 6.5, 0, 0, 0, 6.5, 0, 0.05, 0)
+
+[node name="FishingSpots" type="Node3D" parent="." unique_id=746914233]
+
+[node name="SpotRiacho" parent="FishingSpots" unique_id=964445693 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 16)
+spot_title = "Bajío de la Costa Sur"
+
+[node name="SpotLagunaOeste" parent="FishingSpots" unique_id=1990641631 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -12)
+spot_title = "Bajío de la Isla Oeste"
+
+[node name="SpotCostaneraSur" parent="FishingSpots" unique_id=1270852606 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 50)
+spot_title = "Bajío del Estero Sur"
+
+[node name="SpotArenaNorte" parent="FishingSpots" unique_id=367441263 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -60)
+spot_title = "Bajío del Riacho Norte"
+
+[node name="SpotBajioCamalote" parent="FishingSpots" unique_id=1680160381 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 0, -8)
+spot_title = "Bajío del Camalotal"
+
+[node name="SpotPozoHondura" parent="FishingSpots" unique_id=2146752173 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -14)
+spot_title = "Pozo Profundo del Centro"
+habitat_type = 1
+
+[node name="SpotRemansoDorado" parent="FishingSpots" unique_id=888738803 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 2)
+spot_title = "Pozo Profundo del Canal"
+habitat_type = 1
+
+[node name="SpotPozoNorte" parent="FishingSpots" unique_id=215069162 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -64)
+spot_title = "Pozo de la Bajada"
+habitat_type = 1
+
+[node name="SpotPozoSur" parent="FishingSpots" unique_id=525607991 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 48)
+spot_title = "Pozo de Punta Sauce"
+habitat_type = 1
+
+[node name="SpotEsteroNorte" parent="FishingSpots" unique_id=1898535625 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -30)
+spot_title = "Remanso de Juncos Norte"
+habitat_type = 2
+
+[node name="SpotRemansoEste" parent="FishingSpots" unique_id=169070065 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 22)
+spot_title = "Remanso de Juncos Este"
+habitat_type = 2
+
+[node name="SpotRemansoOeste" parent="FishingSpots" unique_id=197924714 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, -34)
+spot_title = "Remanso de la Barranca"
+habitat_type = 2
+
+[node name="SpotRemansoSauce" parent="FishingSpots" unique_id=1257604181 instance=ExtResource("29_fspot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -88)
+spot_title = "Remanso del Delta Profundo"
+habitat_type = 2
+
+[node name="PassiveNetSpots" type="Node3D" parent="." unique_id=1805353972]
+
+[node name="CreekMouth1" parent="PassiveNetSpots" unique_id=883679613 instance=ExtResource("30_pnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, 10)
+spot_name = "Boca del Arroyo Chico"
+
+[node name="CreekMouth2" parent="PassiveNetSpots" unique_id=315667183 instance=ExtResource("30_pnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 14)
+spot_name = "Boca de la Laguna Este"
+
+[node name="CreekMouth3" parent="PassiveNetSpots" unique_id=1263274024 instance=ExtResource("30_pnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -40)
+spot_name = "Boca del Riacho Norte"
+
+[node name="AlliedNeighbors" type="Node3D" parent="." unique_id=502435445]
+
+[node name="NeighborChacho" parent="AlliedNeighbors" unique_id=459466693 instance=ExtResource("37_nboat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 8)
+fisher_role = "Pescador Artesanal de la Cooperativa"
+dialogue_text = "\"¡Qué hacés, hermano! En los Pozos Profundos (anillo ámbar grande) andan los Surubíes y Patíes pesados, pero tironean lindo: comprale la Caña de tacuara a La Negra Viera antes de pelearlos. Y ojo a la noche por la laguna oeste que anda patrullando 'El Sábalo Negro'.\""
+
+[node name="NeighborMarta" parent="AlliedNeighbors" unique_id=1927471878 instance=ExtResource("37_nboat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -24)
+fisher_name = "Doña Marta (Reddera Isleña)"
+fisher_role = "Bióloga Comunitaria y Reddera"
+dialogue_text = "\"¡Buen día, che! En los Remansos de Juncos están saltando el Dorado y el Pacú. Acordate del convenio científico: si los marcás y devolvés al agua te pagan entre $55 y $85 en el acto y subís +4% la Salud del Río. De noche traete machete para cortar los tramayos del Riacho Norte.\""
+portrait_icon = "res://Used_Assets/ui/CatchingNet.png"
+
+[node name="NeighborGuri" parent="AlliedNeighbors" unique_id=1128906210 instance=ExtResource("37_nboat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 28)
+fisher_name = "El Gurí Maidana (Costa Este)"
+fisher_role = "Veedor Ribereño"
+dialogue_text = "\"¡Guarda con el canal principal, chamigo! Cuando suena la sirena del buque ultramarino se viene una pared de agua hacia los riachos: metete en los juncales o encarala bien de proa para reducir el golpe un 75%. Y a la noche usá el Visor [F] para escrachar al remolcador 'Paraná Sur'.\""
+portrait_icon = "res://Used_Assets/ui/Eye.png"
+
+[node name="NightPatrolsAndNets" type="Node3D" parent="." unique_id=565767206]
+
+[node name="EnemyBarge1" parent="NightPatrolsAndNets" unique_id=287855512 instance=ExtResource("32_barge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -4)
+barge_title = "Barcaza Furtiva 'El Sábalo Negro'"
+evidence_id = "barge_1"
+
+[node name="EnemyBarge2" parent="NightPatrolsAndNets" unique_id=751345907 instance=ExtResource("32_barge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -4)
+barge_title = "Remolcador Clandestino 'Paraná Sur'"
+evidence_id = "barge_2"
+
+[node name="EnemyBarge3" parent="NightPatrolsAndNets" unique_id=693637274 instance=ExtResource("32_barge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -56)
+barge_title = "Frigorífico Flotante 'Río Oscuro'"
+evidence_id = "barge_3"
+
+[node name="IllegalNet1" parent="NightPatrolsAndNets" unique_id=1089427745 instance=ExtResource("33_inet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -2)
+net_location = "Paso de la Laguna Oeste"
+
+[node name="IllegalNet2" parent="NightPatrolsAndNets" unique_id=1159326963 instance=ExtResource("33_inet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -22)
+net_location = "Garganta del Riacho Norte"
+evidence_id = "tramayo_2"
+
+[node name="IllegalNet3" parent="NightPatrolsAndNets" unique_id=939697625 instance=ExtResource("33_inet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 4)
+net_location = "Boca del Estero Este"
+evidence_id = "tramayo_3"
+
+[node name="IllegalNet4" parent="NightPatrolsAndNets" unique_id=466882122 instance=ExtResource("33_inet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -24)
+net_location = "Canal de los Juncos"
+evidence_id = "tramayo_4"
+
+[node name="IllegalNet5" parent="NightPatrolsAndNets" unique_id=1374814815 instance=ExtResource("33_inet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 42)
+net_location = "Paso del Estero Sur"
+evidence_id = "tramayo_5"
+
+[node name="DeepChannelAndPort" type="Node3D" parent="." unique_id=551982580]
+
+[node name="CargoShip" parent="DeepChannelAndPort" unique_id=1185776427 instance=ExtResource("34_cship")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, 160)
+channel_x = 48.0
+start_z = 165.0
+end_z = -165.0
+
+[node name="Buoy1" parent="DeepChannelAndPort" unique_id=1852480288 instance=ExtResource("24_buoy")]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 38, 0, 62)
+
+[node name="Buoy2" parent="DeepChannelAndPort" unique_id=654420666 instance=ExtResource("25_buoy_flag")]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 38, 0, 0)
+
+[node name="Buoy3" parent="DeepChannelAndPort" unique_id=1561853139 instance=ExtResource("24_buoy")]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 38, 0, -62)
+
+[node name="AgroExportPortBank" type="Node3D" parent="DeepChannelAndPort" unique_id=1043184655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, 0, -25)
+
+[node name="PortPlatform" parent="DeepChannelAndPort/AgroExportPortBank" unique_id=226977313 instance=ExtResource("4_plat_grass")]
+transform = Transform3D(38, 0, 0, 0, 7, 0, 0, 0, 56, 0, 0.35, 0)
+
+[node name="SiloBldg1" parent="DeepChannelAndPort/AgroExportPortBank" unique_id=370646219 instance=ExtResource("26_port_bldg")]
+transform = Transform3D(8, 0, 0, 0, 11, 0, 0, 0, 8, -4, 1.6, -12)
+
+[node name="SiloBldg2" parent="DeepChannelAndPort/AgroExportPortBank" unique_id=782049505 instance=ExtResource("26_port_bldg")]
+transform = Transform3D(8, 0, 0, 0, 13, 0, 0, 0, 8, -4, 1.6, 4)
+
+[node name="ContainerStack1" parent="DeepChannelAndPort/AgroExportPortBank" unique_id=700457087 instance=ExtResource("27_container")]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -10, 1.6, 16)
+
+[node name="CargoPile1" parent="DeepChannelAndPort/AgroExportPortBank" unique_id=1236822449 instance=ExtResource("28_cargo_pile")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -10, 1.6, -2)
+
+[node name="Boat" parent="." unique_id=900876332 instance=ExtResource("3_boat")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -18, 0, 21)
+
+[node name="HUD" parent="." unique_id=473706207 instance=ExtResource("31_hud")]

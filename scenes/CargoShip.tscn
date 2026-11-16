@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/CargoShip.gd" id="1_ship"]
+[ext_resource type="PackedScene" path="res://Used_Assets/models/ship-cargo-a.glb" id="2_hull"]
+[ext_resource type="AudioStream" path="res://Used_Assets/audio/wake_rumble.wav" id="3_rumble"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ship"]
+size = Vector3(7, 6, 26)
+
+[node name="CargoShip" type="Node3D"]
+script = ExtResource("1_ship")
+
+[node name="HullMesh" parent="." instance=ExtResource("2_hull")]
+transform = Transform3D(-4.2, 0, 0, 0, 4.2, 0, 0, 0, -4.2, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_ship")
+
+[node name="BridgeLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 5.5)
+light_color = Color(1, 0.9, 0.7, 1)
+light_energy = 3.0
+omni_range = 24.0
+
+[node name="BowSpot" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 5.5, -11.5)
+light_color = Color(0.9, 0.95, 1, 1)
+light_energy = 8.0
+spot_range = 42.0
+spot_angle = 32.0
+
+[node name="SfxWakeRumble" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_rumble")
+unit_size = 35.0
+max_distance = 160.0

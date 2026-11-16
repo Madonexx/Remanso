@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dk015eg0mt2tx"
+path="res://.godot/imported/building-f.obj-fc1af1f84c0f0478f6d28f9be1529efa.mesh"
+
+[deps]
+
+files=["res://.godot/imported/building-f.obj-fc1af1f84c0f0478f6d28f9be1529efa.mesh"]
+
+source_file="res://Assets/City Kit Industrial/Models/OBJ format/building-f.obj"
+dest_files=["res://.godot/imported/building-f.obj-fc1af1f84c0f0478f6d28f9be1529efa.mesh", "res://.godot/imported/building-f.obj-fc1af1f84c0f0478f6d28f9be1529efa.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

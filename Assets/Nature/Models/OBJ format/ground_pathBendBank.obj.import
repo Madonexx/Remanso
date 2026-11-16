@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bjdveil1is5lc"
+path="res://.godot/imported/ground_pathBendBank.obj-ad2cf223f7e5fc5a6d54c44fea607aff.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ground_pathBendBank.obj-ad2cf223f7e5fc5a6d54c44fea607aff.mesh"]
+
+source_file="res://Assets/Nature/Models/OBJ format/ground_pathBendBank.obj"
+dest_files=["res://.godot/imported/ground_pathBendBank.obj-ad2cf223f7e5fc5a6d54c44fea607aff.mesh", "res://.godot/imported/ground_pathBendBank.obj-ad2cf223f7e5fc5a6d54c44fea607aff.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

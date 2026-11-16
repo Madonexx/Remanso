@@ -1,0 +1,154 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scripts/Boat.gd" id="1_boat"]
+[ext_resource type="PackedScene" path="res://Used_Assets/models/boat-row-large.glb" id="2_hull"]
+[ext_resource type="AudioStream" path="res://Used_Assets/audio/arranquemotor.wav" id="4_start"]
+[ext_resource type="AudioStream" path="res://Used_Assets/audio/motorandando.wav" id="5_loop"]
+[ext_resource type="AudioStream" path="res://Used_Assets/audio/apagandomotor.wav" id="6_stop"]
+[ext_resource type="AudioStream" path="res://Used_Assets/audio/rev.wav" id="7_rev"]
+[ext_resource type="AudioStream" path="res://Used_Assets/audio/row_splash.wav" id="8_row"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hull"]
+size = Vector3(1.5, 0.9, 3.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_motor"]
+albedo_color = Color(0.18, 0.2, 0.22, 1)
+metallic = 0.65
+roughness = 0.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_engine"]
+material = SubResource("StandardMaterial3D_motor")
+size = Vector3(0.36, 0.32, 0.42)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_shaft"]
+material = SubResource("StandardMaterial3D_motor")
+top_radius = 0.045
+bottom_radius = 0.045
+height = 0.65
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_armor"]
+albedo_color = Color(0.38, 0.23, 0.14, 1)
+roughness = 0.55
+
+[sub_resource type="BoxMesh" id="BoxMesh_armor"]
+material = SubResource("StandardMaterial3D_armor")
+size = Vector3(0.12, 0.32, 2.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lantern"]
+albedo_color = Color(1, 0.85, 0.4, 1)
+emission_enabled = true
+emission = Color(1, 0.78, 0.32, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_lantern"]
+material = SubResource("StandardMaterial3D_lantern")
+radius = 0.11
+height = 0.22
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noise"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.45, 0.2, 0.38)
+
+[sub_resource type="TorusMesh" id="TorusMesh_noise"]
+material = SubResource("StandardMaterial3D_noise")
+inner_radius = 9.75
+outer_radius = 10.0
+rings = 48
+ring_segments = 12
+
+[node name="Boat" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_boat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("BoxShape3D_hull")
+
+[node name="VisualRoot" type="Node3D" parent="."]
+
+[node name="HullModel" parent="VisualRoot" instance=ExtResource("2_hull")]
+transform = Transform3D(-1.45, 0, 0, 0, 1.45, 0, 0, 0, -1.45, 0, 0, 0)
+
+[node name="OutboardMotor" type="Node3D" parent="VisualRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58, 1.72)
+visible = false
+
+[node name="EngineHead" type="MeshInstance3D" parent="VisualRoot/OutboardMotor"]
+mesh = SubResource("BoxMesh_engine")
+
+[node name="MotorShaft" type="MeshInstance3D" parent="VisualRoot/OutboardMotor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35, 0.08)
+mesh = SubResource("CylinderMesh_shaft")
+
+[node name="ArmorPlates" type="Node3D" parent="VisualRoot"]
+visible = false
+
+[node name="LapachoLeft" type="MeshInstance3D" parent="VisualRoot/ArmorPlates"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82, 0.42, 0.1)
+mesh = SubResource("BoxMesh_armor")
+
+[node name="LapachoRight" type="MeshInstance3D" parent="VisualRoot/ArmorPlates"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82, 0.42, 0.1)
+mesh = SubResource("BoxMesh_armor")
+
+[node name="LanternMesh" type="MeshInstance3D" parent="VisualRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68, -1.68)
+mesh = SubResource("SphereMesh_lantern")
+
+[node name="BowLantern" type="SpotLight3D" parent="VisualRoot"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.78, -1.75)
+visible = false
+light_color = Color(1, 0.86, 0.58, 1)
+light_energy = 5.5
+shadow_enabled = true
+spot_range = 30.0
+spot_angle = 36.0
+
+[node name="BowOmni" type="OmniLight3D" parent="VisualRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, -1.65)
+visible = false
+light_color = Color(1, 0.8, 0.45, 1)
+light_energy = 1.2
+omni_range = 5.0
+
+[node name="NoiseRing" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
+visible = false
+mesh = SubResource("TorusMesh_noise")
+
+[node name="CameraRig" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 0.882948, 0.469472, 0, -0.469472, 0.882948, 0, 0, 0)
+collision_mask = 0
+spring_length = 13.5
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.5)
+current = true
+fov = 62.0
+
+[node name="Audio" type="Node3D" parent="."]
+
+[node name="SfxMotorStart" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("4_start")
+max_distance = 40.0
+
+[node name="SfxMotorLoop" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("5_loop")
+max_distance = 45.0
+
+[node name="SfxMotorStop" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("6_stop")
+max_distance = 40.0
+
+[node name="SfxMotorRev" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("7_rev")
+max_distance = 40.0
+
+[node name="SfxRowSplash" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("8_row")
+max_distance = 25.0

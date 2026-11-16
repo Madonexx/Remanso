@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c1kem53c7eiix"
+path="res://.godot/imported/Stag.obj-4c89090a56f372d5bc7c8a8a3985b396.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Stag.obj-4c89090a56f372d5bc7c8a8a3985b396.mesh"]
+
+source_file="res://Assets/Animated Animals/Ultimate Animated Animals - July 2021/OBJ/Stag.obj"
+dest_files=["res://.godot/imported/Stag.obj-4c89090a56f372d5bc7c8a8a3985b396.mesh", "res://.godot/imported/Stag.obj-4c89090a56f372d5bc7c8a8a3985b396.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

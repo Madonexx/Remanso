@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ko4iv6vopkda"
+path="res://.godot/imported/fence_bendCenter.obj-a37e44ebe2d10675a8a7075f1236872b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/fence_bendCenter.obj-a37e44ebe2d10675a8a7075f1236872b.mesh"]
+
+source_file="res://Assets/Nature/Models/OBJ format/fence_bendCenter.obj"
+dest_files=["res://.godot/imported/fence_bendCenter.obj-a37e44ebe2d10675a8a7075f1236872b.mesh", "res://.godot/imported/fence_bendCenter.obj-a37e44ebe2d10675a8a7075f1236872b.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

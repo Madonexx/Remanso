@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b7co1s8ifvsb1"
+path="res://.godot/imported/tool-axe.obj-e557d26a6f9ae07b56807a2107b488ca.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tool-axe.obj-e557d26a6f9ae07b56807a2107b488ca.mesh"]
+
+source_file="res://Assets/Survival/Models/OBJ format/tool-axe.obj"
+dest_files=["res://.godot/imported/tool-axe.obj-e557d26a6f9ae07b56807a2107b488ca.mesh", "res://.godot/imported/tool-axe.obj-e557d26a6f9ae07b56807a2107b488ca.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

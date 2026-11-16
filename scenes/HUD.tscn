@@ -1,0 +1,858 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/HUD.gd" id="1_hud"]
+[ext_resource type="Theme" path="res://ui/LitoralTheme.tres" id="2_theme"]
+[ext_resource type="Script" path="res://scripts/RadialFishingRing.gd" id="3_radial"]
+[ext_resource type="Script" path="res://scripts/HullGridView.gd" id="4_grid"]
+[ext_resource type="Texture2D" path="res://Used_Assets/ui/boat-fishing.png" id="5_icon_anselmo"]
+[ext_resource type="Texture2D" path="res://Used_Assets/ui/Wrench.png" id="6_icon_viera"]
+[ext_resource type="Texture2D" path="res://Used_Assets/ui/Cash.png" id="7_icon_turco"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kraft_card"]
+content_margin_left = 20.0
+content_margin_top = 18.0
+content_margin_right = 20.0
+content_margin_bottom = 18.0
+bg_color = Color(0.917647, 0.878431, 0.784314, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.788235, 0.603922, 0.270588, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_char_box"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.17, 0.19, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.788235, 0.603922, 0.270588, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_portrait_badge"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.22, 0.31, 0.34, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.82, 0.45, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_orders"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.11, 0.19, 0.17, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.42, 0.78, 0.55, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shady"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.22, 0.11, 0.11, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.32, 0.25, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_viewfinder"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.04, 0.08, 0.09, 0.35)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.788235, 0.603922, 0.270588, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="TopBar" type="PanelContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = 54.0
+grow_horizontal = 2
+
+[node name="HBox" type="HBoxContainer" parent="Root/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="LblDayPhase" type="Label" parent="Root/TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.52, 1)
+theme_override_font_sizes/font_size = 14
+text = "Día 1 / 7 — Día"
+
+[node name="VSep1" type="VSeparator" parent="Root/TopBar/HBox"]
+layout_mode = 2
+
+[node name="RiverBox" type="HBoxContainer" parent="Root/TopBar/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LblRiverPct" type="Label" parent="Root/TopBar/HBox/RiverBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Salud del Río: 75%"
+
+[node name="BarRiverHealth" type="ProgressBar" parent="Root/TopBar/HBox/RiverBox"]
+custom_minimum_size = Vector2(90, 16)
+layout_mode = 2
+size_flags_vertical = 4
+value = 75.0
+show_percentage = false
+
+[node name="VSep2" type="VSeparator" parent="Root/TopBar/HBox"]
+layout_mode = 2
+
+[node name="LblHull" type="Label" parent="Root/TopBar/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Casco: 100%"
+
+[node name="VSep3" type="VSeparator" parent="Root/TopBar/HBox"]
+layout_mode = 2
+
+[node name="LblMoney" type="Label" parent="Root/TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.95, 0.62, 1)
+theme_override_font_sizes/font_size = 14
+text = "$ 60"
+
+[node name="VSep4" type="VSeparator" parent="Root/TopBar/HBox"]
+layout_mode = 2
+
+[node name="LblPhotos" type="Label" parent="Root/TopBar/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "📷 Pruebas: 0/10"
+
+[node name="VSep5" type="VSeparator" parent="Root/TopBar/HBox"]
+layout_mode = 2
+
+[node name="LblStealthMode" type="Label" parent="Root/TopBar/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "🚣 Remo Silencioso [M]"
+
+[node name="BtnCamToggle" type="Button" parent="Root/TopBar/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "📷 Visor [F]"
+
+[node name="NotificationBanner" type="PanelContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -290.0
+offset_top = 62.0
+offset_right = 290.0
+offset_bottom = 102.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="LblNotification" type="Label" parent="Root/NotificationBanner"]
+layout_mode = 2
+mouse_filter = 2
+horizontal_alignment = 1
+text = "Aviso del Paraná"
+
+[node name="ViewfinderOverlay" type="Control" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FramePanel" type="PanelContainer" parent="Root/ViewfinderOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -170.0
+offset_right = 290.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_viewfinder")
+
+[node name="VBox" type="VBoxContainer" parent="Root/ViewfinderOverlay/FramePanel"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="LblVfZoom" type="Label" parent="Root/ViewfinderOverlay/FramePanel/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.52, 1)
+horizontal_alignment = 1
+text = "VISOR DE PRUEBAS — Lente Estándar 1.0x"
+
+[node name="CenterCrosshair" type="Label" parent="Root/ViewfinderOverlay/FramePanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 6
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.52, 0.75)
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "[  +  ]"
+
+[node name="LblVfTarget" type="Label" parent="Root/ViewfinderOverlay/FramePanel/VBox"]
+layout_mode = 2
+mouse_filter = 2
+horizontal_alignment = 1
+text = "Mové el mouse para encuadrar una barcaza clandestina o tramayo ilegal..."
+
+[node name="PromptPanel" type="PanelContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -82.0
+offset_right = 260.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/PromptPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="LblPrompt" type="Label" parent="Root/PromptPanel/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.98, 0.88, 0.55, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+text = "[E] Pescar"
+
+[node name="BarCutProgress" type="ProgressBar" parent="Root/PromptPanel/VBox"]
+visible = false
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+mouse_filter = 2
+show_percentage = false
+
+[node name="RadialFishingRing" type="Control" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -140.0
+offset_right = 140.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_radial")
+
+[node name="CatchModal" type="PanelContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -155.0
+offset_right = 245.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kraft_card")
+
+[node name="VBox" type="VBoxContainer" parent="Root/CatchModal"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderHBox" type="HBoxContainer" parent="Root/CatchModal/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FishIcon" type="TextureRect" parent="Root/CatchModal/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TitleVBox" type="VBoxContainer" parent="Root/CatchModal/VBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblCatchTitle" type="Label" parent="Root/CatchModal/VBox/HeaderHBox/TitleVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.16, 0.18, 1)
+theme_override_font_sizes/font_size = 22
+text = "Sábalo"
+
+[node name="LblCatchSize" type="Label" parent="Root/CatchModal/VBox/HeaderHBox/TitleVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.24, 0.28, 0.28, 1)
+theme_override_font_sizes/font_size = 14
+text = "Talla: 45 cm | Mínimo legal: 40 cm"
+
+[node name="LblCatchStamp" type="Label" parent="Root/CatchModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+text = "✓ TALLA REGLAMENTARIA LEGAL"
+
+[node name="LblCatchNote" type="Label" parent="Root/CatchModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.22, 0.22, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "Ejemplar adulto apto para la venta en la Cooperativa."
+
+[node name="BtnHBox" type="HBoxContainer" parent="Root/CatchModal/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="BtnKeepFish" type="Button" parent="Root/CatchModal/VBox/BtnHBox"]
+custom_minimum_size = Vector2(185, 40)
+layout_mode = 2
+text = "Guardar en bodega"
+
+[node name="BtnReleaseFish" type="Button" parent="Root/CatchModal/VBox/BtnHBox"]
+custom_minimum_size = Vector2(235, 40)
+layout_mode = 2
+text = "Devolver al río"
+
+[node name="InventoryModal" type="PanelContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -190.0
+offset_right = 225.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/InventoryModal"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LblInvTitle" type="Label" parent="Root/InventoryModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+text = "BODEGA DE LA CANOA (6x4)"
+
+[node name="GridCenter" type="CenterContainer" parent="Root/InventoryModal/VBox"]
+layout_mode = 2
+
+[node name="HullGridView" type="Control" parent="Root/InventoryModal/VBox/GridCenter"]
+custom_minimum_size = Vector2(348, 232)
+layout_mode = 2
+script = ExtResource("4_grid")
+
+[node name="LblInvHint" type="Label" parent="Root/InventoryModal/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+text = "Click Izq: Agarrar / Intercambiar  |  [R] o Click Der: Rotar 90°"
+
+[node name="BtnRow" type="HBoxContainer" parent="Root/InventoryModal/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="BtnDiscardFish" type="Button" parent="Root/InventoryModal/VBox/BtnRow"]
+layout_mode = 2
+text = "Devolver al río / Tirar por la borda"
+
+[node name="BtnCloseInv" type="Button" parent="Root/InventoryModal/VBox/BtnRow"]
+layout_mode = 2
+text = "Cerrar Bodega [Tab/I]"
+
+[node name="PierModal" type="PanelContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -290.0
+offset_right = 350.0
+offset_bottom = 290.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/PierModal"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LblPierHeader" type="Label" parent="Root/PierModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 19
+horizontal_alignment = 1
+text = "MUELLE COOPERATIVA PESQUERA \"EL PARANÁ\""
+
+[node name="TabButtons" type="HBoxContainer" parent="Root/PierModal/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BtnTabVenta" type="Button" parent="Root/PierModal/VBox/TabButtons"]
+custom_minimum_size = Vector2(240, 34)
+layout_mode = 2
+text = "Don Anselmo (Acopio y Pedidos)"
+
+[node name="BtnTabTaller" type="Button" parent="Root/PierModal/VBox/TabButtons"]
+custom_minimum_size = Vector2(240, 34)
+layout_mode = 2
+text = "La Negra Viera (Taller — 8 Mejoras)"
+
+[node name="HSep" type="HSeparator" parent="Root/PierModal/VBox"]
+layout_mode = 2
+
+[node name="ContentArea" type="MarginContainer" parent="Root/PierModal/VBox"]
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TabVenta" type="VBoxContainer" parent="Root/PierModal/VBox/ContentArea"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DonAnselmoBox" type="PanelContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_char_box")
+
+[node name="HBox" type="HBoxContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta/DonAnselmoBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PortraitBadge" type="PanelContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta/DonAnselmoBox/HBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_badge")
+
+[node name="AnselmoIcon" type="TextureRect" parent="Root/PierModal/VBox/ContentArea/TabVenta/DonAnselmoBox/HBox/PortraitBadge"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+texture = ExtResource("5_icon_anselmo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta/DonAnselmoBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblAnselmoName" type="Label" parent="Root/PierModal/VBox/ContentArea/TabVenta/DonAnselmoBox/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 14
+text = "DON ANSELMO — Encargado de la Cooperativa"
+
+[node name="LblAnselmoDialogue" type="Label" parent="Root/PierModal/VBox/ContentArea/TabVenta/DonAnselmoBox/HBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 3
+text = "Bitácora del día."
+
+[node name="LblPierCargo" type="Label" parent="Root/PierModal/VBox/ContentArea/TabVenta"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+text = "Bodega actual: 0 ejemplares"
+
+[node name="OrdersBox" type="PanelContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_orders")
+
+[node name="VBox" type="VBoxContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta/OrdersBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="LblOrdersTitle" type="Label" parent="Root/PierModal/VBox/ContentArea/TabVenta/OrdersBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.95, 0.68, 1)
+theme_override_font_sizes/font_size = 13
+text = "📋 PEDIDOS COMUNITARIOS DEL DÍA (Se cumplen al vender en Cooperativa):"
+
+[node name="LblOrdersList" type="Label" parent="Root/PierModal/VBox/ContentArea/TabVenta/OrdersBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
+text = "• Comedor Isleño: 3 Sábalos reglamentarios (0/3)"
+
+[node name="BtnSellLegal" type="Button" parent="Root/PierModal/VBox/ContentArea/TabVenta"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+text = "Vender Pesca Reglamentaria en Cooperativa"
+
+[node name="BtnRepairHull" type="Button" parent="Root/PierModal/VBox/ContentArea/TabVenta"]
+visible = false
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+text = "Calafatear y Reparar Casco"
+
+[node name="ShadyBox" type="PanelContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_shady")
+
+[node name="HBox" type="HBoxContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta/ShadyBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TurcoBadge" type="PanelContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta/ShadyBox/HBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_badge")
+
+[node name="TurcoIcon" type="TextureRect" parent="Root/PierModal/VBox/ContentArea/TabVenta/ShadyBox/HBox/TurcoBadge"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+texture = ExtResource("7_icon_turco")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="Root/PierModal/VBox/ContentArea/TabVenta/ShadyBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="LblShadyOffer" type="Label" parent="Root/PierModal/VBox/ContentArea/TabVenta/ShadyBox/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78, 0.72, 1)
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
+text = "El \"Turco\" (Acopiador Clandestino)"
+
+[node name="BtnSellShady" type="Button" parent="Root/PierModal/VBox/ContentArea/TabVenta/ShadyBox/HBox/VBox"]
+layout_mode = 2
+text = "Vender a El \"Turco\" (3x $ / -15% Río)"
+
+[node name="TabTaller" type="VBoxContainer" parent="Root/PierModal/VBox/ContentArea"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="NegraVieraBox" type="PanelContainer" parent="Root/PierModal/VBox/ContentArea/TabTaller"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_char_box")
+
+[node name="HBox" type="HBoxContainer" parent="Root/PierModal/VBox/ContentArea/TabTaller/NegraVieraBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PortraitBadge" type="PanelContainer" parent="Root/PierModal/VBox/ContentArea/TabTaller/NegraVieraBox/HBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_badge")
+
+[node name="VieraIcon" type="TextureRect" parent="Root/PierModal/VBox/ContentArea/TabTaller/NegraVieraBox/HBox/PortraitBadge"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+texture = ExtResource("6_icon_viera")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="Root/PierModal/VBox/ContentArea/TabTaller/NegraVieraBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblVieraName" type="Label" parent="Root/PierModal/VBox/ContentArea/TabTaller/NegraVieraBox/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 14
+text = "LA NEGRA VIERA — Carpintera del Taller de la Costa"
+
+[node name="LblVieraDialogue" type="Label" parent="Root/PierModal/VBox/ContentArea/TabTaller/NegraVieraBox/HBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 3
+text = "Consejo de taller."
+
+[node name="Scroll" type="ScrollContainer" parent="Root/PierModal/VBox/ContentArea/TabTaller"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="UpgradesList" type="VBoxContainer" parent="Root/PierModal/VBox/ContentArea/TabTaller/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="HSep2" type="HSeparator" parent="Root/PierModal/VBox"]
+layout_mode = 2
+
+[node name="FooterRow" type="HBoxContainer" parent="Root/PierModal/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BtnPierNight" type="Button" parent="Root/PierModal/VBox/FooterRow"]
+custom_minimum_size = Vector2(240, 38)
+layout_mode = 2
+text = "Salir de Patrulla Nocturna 🌙"
+
+[node name="BtnPierClose" type="Button" parent="Root/PierModal/VBox/FooterRow"]
+custom_minimum_size = Vector2(220, 38)
+layout_mode = 2
+text = "Zarpar a pescar (Día 1)"
+
+[node name="NeighborModal" type="PanelContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -140.0
+offset_right = 255.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/NeighborModal"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderHBox" type="HBoxContainer" parent="Root/NeighborModal/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="PortraitBadge" type="PanelContainer" parent="Root/NeighborModal/VBox/HeaderHBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_badge")
+
+[node name="NeighborIcon" type="TextureRect" parent="Root/NeighborModal/VBox/HeaderHBox/PortraitBadge"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("5_icon_anselmo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TitleVBox" type="VBoxContainer" parent="Root/NeighborModal/VBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblNeighborName" type="Label" parent="Root/NeighborModal/VBox/HeaderHBox/TitleVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 18
+text = "Chacho (Canoero)"
+
+[node name="LblNeighborRole" type="Label" parent="Root/NeighborModal/VBox/HeaderHBox/TitleVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.88, 0.95, 1)
+theme_override_font_sizes/font_size = 13
+text = "Pescador Vecino de la Cooperativa"
+
+[node name="LblNeighborDialogue" type="Label" parent="Root/NeighborModal/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+autowrap_mode = 3
+text = "Consejo del río."
+
+[node name="BtnCloseNeighbor" type="Button" parent="Root/NeighborModal/VBox"]
+custom_minimum_size = Vector2(200, 38)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Seguir navegando [E]"
+
+[node name="TitleOverlay" type="PanelContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -170.0
+offset_right = 280.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/TitleOverlay"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="LblMainTitle" type="Label" parent="Root/TitleOverlay/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+text = "RED DE FONDO"
+
+[node name="LblSubTitle" type="Label" parent="Root/TitleOverlay/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.85, 0.92, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+text = "Liberen el Paraná — Cooperativa Ribereña"
+
+[node name="LblIntro" type="Label" parent="Root/TitleOverlay/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "Tenés 7 días antes de la Audiencia Pública Ambiental: sostené la pesca artesanal junto a Don Anselmo y La Negra Viera, marcá y devolvé Dorados y Pacúes, cortá tramayos de noche y reuní 10 pruebas fotográficas."
+
+[node name="LblControls" type="Label" parent="Root/TitleOverlay/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.78, 0.68, 1)
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+text = "[WASD] Navegar | [Click Der] Cámara | [M] Motor/Remo | [E] Interactuar | [Tab/I] Bodega | [F] Cámara"
+
+[node name="BtnStartGame" type="Button" parent="Root/TitleOverlay/VBox"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Zarpar al Río"
+
+[node name="EndingModal" type="PanelContainer" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -175.0
+offset_right = 295.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/EndingModal"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="LblEndingTitle" type="Label" parent="Root/EndingModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+text = "FINAL SOBERANO"
+
+[node name="LblEndingDesc" type="Label" parent="Root/EndingModal/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "Descripción del desenlace."
+
+[node name="LblEndingStats" type="Label" parent="Root/EndingModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.88, 0.95, 1)
+horizontal_alignment = 1
+text = "Salud del Río: 80% | Pruebas: 10/10"
+
+[node name="BtnRestartGame" type="Button" parent="Root/EndingModal/VBox"]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Volver a jugar"
+
+[node name="FlashRect" type="ColorRect" parent="Root"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)

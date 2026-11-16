@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/EnemyBarge.gd" id="1_barge"]
+[ext_resource type="PackedScene" path="res://Used_Assets/models/boat-tug-a.glb" id="2_tug"]
+[ext_resource type="PackedScene" path="res://Used_Assets/models/cargo-pile-a.glb" id="3_cargo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cone"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.9, 0.55, 0.16)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cone"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_cone")
+top_radius = 0.25
+bottom_radius = 5.2
+height = 22.0
+radial_segments = 24
+rings = 1
+
+[node name="EnemyBarge" type="Node3D"]
+script = ExtResource("1_barge")
+
+[node name="TugMesh" parent="." instance=ExtResource("2_tug")]
+transform = Transform3D(-2.2, 0, 0, 0, 2.2, 0, 0, 0, -2.2, 0, 0, 0)
+
+[node name="ContrabandCargo" parent="." instance=ExtResource("3_cargo")]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0.45, 1.8)
+
+[node name="CabinLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, -0.5)
+light_color = Color(1, 0.45, 0.25, 1)
+light_energy = 1.6
+omni_range = 8.0
+
+[node name="SearchlightPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, -2.4)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="SearchlightPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0)
+light_color = Color(1, 0.9, 0.55, 1)
+light_energy = 9.5
+shadow_enabled = true
+spot_range = 26.0
+spot_angle = 26.0
+
+[node name="ConeMesh" type="MeshInstance3D" parent="SearchlightPivot"]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, -1.9, -11.0)
+mesh = SubResource("CylinderMesh_cone")

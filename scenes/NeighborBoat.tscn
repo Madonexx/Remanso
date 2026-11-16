@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/NeighborBoat.gd" id="1_nboat"]
+[ext_resource type="PackedScene" path="res://Used_Assets/models/boat-fishing-small.glb" id="2_mesh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_interact"]
+height = 3.5
+radius = 6.2
+
+[node name="NeighborBoat" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_nboat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_interact")
+
+[node name="VisualRoot" type="Node3D" parent="."]
+
+[node name="BoatMesh" parent="VisualRoot" instance=ExtResource("2_mesh")]
+transform = Transform3D(-1.75, 0, 0, 0, 1.75, 0, 0, 0, -1.75, 0, 0, 0)
+
+[node name="LblName3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35, 0)
+billboard = 2
+modulate = Color(0.95, 0.88, 0.62, 1)
+text = "Pescador Vecino"
+font_size = 38
+outline_size = 10
